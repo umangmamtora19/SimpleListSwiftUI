@@ -36,8 +36,10 @@ struct HomeView: View {
                 
                 if homeVM.selection == 0 {
                     List(homeVM.peopleList, id: \.id) { person in
-                        PeopleCell(person: person)
-                    }.animation(.easeIn(duration: 0.2))
+                        NavigationLink(destination: PersonDetailView(person: person)) {
+                            PeopleCell(person: person)
+                        }
+                    }.animation(.easeIn(duration: 0.2)) 
                         .modifier(HideIndicator())
                     
                 } else {
@@ -52,7 +54,9 @@ struct HomeView: View {
             ActivityIndicator($homeVM.isLoading)
         }
         .onAppear {
-            homeVM.getPeoples()
+            if homeVM.peopleList.isEmpty {
+                homeVM.getPeoples()
+            }
         }
         .disabled(homeVM.isLoading)
         

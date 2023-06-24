@@ -6,21 +6,13 @@
 //
 
 import SwiftUI
-import SDWebImageSwiftUI
 
 struct PeopleCell: View {
     let person: People!
     
     var body: some View {
         HStack(spacing: 15) {
-            WebImage(url: URL(string: person.avatar))
-                .placeholder(Image(systemName: "person").resizable())
-                .frame(width: 25, height: 25)
-                .foregroundColor(Color.white)
-                .frame(width: 50, height: 50)
-                .background(Color.orange)
-                .cornerRadius(25)
-                .animation(.easeIn(duration: 1))
+            PersonImageView(url: person.avatar, width: 50)
             
             VStack(alignment: .leading, spacing: 4) {
                 Text("\(person.firstName) \(person.lastName)")
@@ -28,6 +20,8 @@ struct PeopleCell: View {
                 Text(person.email)
                     .font(.system(.caption))
             }
+            Spacer()
         }
     }
 }
+
